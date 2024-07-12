@@ -11,21 +11,10 @@ pipeline{
                 bat 'mvn clean install'
             }
         }
-        stage('Login to DockerHub'){
+        stage('Build Sleep..'){
             steps{
-                    withCredentials([string(credentialsId: 'nextgentechsavvy-docker-hub-pwd', variable: 'nextgentechsavvy-docker-hub-pwd')]) {
-                        bat 'type nextgentechsavvy-docker-hub-token.txt | docker login --username nextgentechsavvy --password-stdin'
-                    //withCredentials([string(credentialsId: 'mmtspldockerhub-pwd', variable: 'mmtspldockerhub-pwd')]) {                        //C:\Users\mmser\.jenkins\workspace\devops-integration\password.txt
-                        //bat 'type mmtspl-docker-hub-token.txt | docker login --username mmtspldockerhub --password-stdin'
-
-                        //bat 'docker login --username mmtspldockerhub --password ${dockerhubpwd}'
-                    }
-            }
-        }
-        stage('Build docker image'){
-            steps{
-                         // Docker image name ::  mmtspl-employee-service
-                         bat 'docker build -t mmtspl-config-service-1.0.0-snapshot .'
+                     // Docker image name ::  mmtspl-employee-service
+                     bat 'timeout 100'
             }
         }
         stage('Tag docker image to the DockerHub image'){
@@ -34,6 +23,12 @@ pipeline{
                     // docker image tag <image_name>:<tag_name>  <repository_name>/<new_image_name>:<tag_name>
                     bat 'docker image tag mmtspl-config-service-1.0.0-snapshot:latest nextgentechsavvy/mmtspl-config-service-1.0.0-snapshot:latest-hub-image'
                     //bat 'docker image tag mmtspl-employee-service-1.0.0-snapshot:latest mmtspldockerhub/mmtspl-employee-service-1.0.0-snapshot:latest-hub-image'
+            }
+        }
+        stage('Build docker image'){
+            steps{
+                         // Docker image name ::  mmtspl-employee-service
+                         bat 'docker build -t mmtspl-config-service-1.0.0-snapshot .'
             }
         }
         stage('Push docker hub image to the DockerHub'){
