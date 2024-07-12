@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: mmtspl-config-service-k8s-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mmtspl-config-service-k8s
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: mmtspl-config-service-k8s
+    spec:
+      containers:
+        - name: mmtspl-config-service-k8s-container
+          image: mmtspl-config-service-1.0.0-snapshot # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9012 # The port that the container is running on in the cluster
+
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: mmtspl-config-service-k8s-svc
+spec:
+  selector:
+    app: mmtspl-config-service-k8s
+  ports:
+    - protocol: "TCP"
+      port: 9012 # The port that the service is running on in the cluster
+      targetPort: 9012 # The port exposed by the service
+  type: NodePort # type of the service.

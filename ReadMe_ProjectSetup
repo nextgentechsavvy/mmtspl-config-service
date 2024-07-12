@@ -1,0 +1,35 @@
+
+		***************  mmtspl-config-service port : 9012 *******************
+
+
+SpringBoot
+Spring Exceptions
+Spring JUnit Testing
+
+
+
+
+
+
+
+
+
+Start up the application :
+	1. Build and Run the application using Maven Build with   clean install spring-boot:run
+	
+	
+	
+application.properties 
+	
+	make  spring.jpa.hibernate.ddl-auto=none    and rerun the application after first time.
+	
+Url
+
+	http://localhost:9012/restapiconfigservices/getIPv4Address
+
+
+  	
+  	
+   
+   
+   
