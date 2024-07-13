@@ -12,7 +12,8 @@ public class MMTSPLConfigService {
     //Returned the current server IPv4 Address
     public String getIPv4Address(){
         try{
-            strIPv4Address = Inet4Address.getLocalHost().getHostAddress();
+            strIPv4Address = "192.168.100.13";
+            //strIPv4Address = Inet4Address.getLocalHost().getHostAddress();
             System.out.println(strIPv4Address);
         }catch(Exception e){
             e.printStackTrace();
